@@ -125,7 +125,8 @@ func (b *jwtAuthBackend) pathLogin(ctx context.Context, req *logical.Request, d 
 		return logical.ErrorResponse("error validating claims: %s", err.Error()), nil
 	}
 
-	tokenMetadata := map[string]string{"role": roleName}
+	alias.Metadata["role"] = roleName
+	tokenMetadata := make(map[string]string)
 	for k, v := range alias.Metadata {
 		tokenMetadata[k] = v
 	}
